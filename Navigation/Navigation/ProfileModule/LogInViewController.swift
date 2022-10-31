@@ -47,6 +47,7 @@ class LogInViewController: UIViewController {
         login.layer.cornerRadius = 10
         login.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         login.delegate = self
+        //login.tintColor = .accentColor
         return login
     }()
 
@@ -67,7 +68,7 @@ class LogInViewController: UIViewController {
         password.layer.cornerRadius = 10
         password.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         password.delegate = self
-        //password.tintColor = .assentColor
+        //password.tintColor = .accentColor
         return password
     }()
 
