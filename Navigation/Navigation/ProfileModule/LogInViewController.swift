@@ -6,6 +6,27 @@ class LogInViewController: UIViewController {
     
     // MARK: - Properties
     
+    class CustomButton: UIButton {
+        override var isHighlighted: Bool {
+            didSet {
+                if (isHighlighted) {
+                    alpha = 0.8
+                } else {
+                    alpha = 1
+                }
+            }
+        }
+        override var isSelected: Bool {
+            didSet {
+                if (isSelected) {
+                    alpha = 0.8
+                } else {
+                    alpha = 1
+                }
+            }
+        }
+    }
+    
    private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -47,7 +68,6 @@ class LogInViewController: UIViewController {
         login.layer.cornerRadius = 10
         login.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         login.delegate = self
-        //login.tintColor = .accentColor
         return login
     }()
 
@@ -68,12 +88,11 @@ class LogInViewController: UIViewController {
         password.layer.cornerRadius = 10
         password.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         password.delegate = self
-        //password.tintColor = .accentColor
         return password
     }()
 
-    private lazy var button: UIButton = {
-        let button = UIButton()
+    private lazy var button: CustomButton = {
+        let button = CustomButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
         button.setTitle("Log in", for: .normal)
