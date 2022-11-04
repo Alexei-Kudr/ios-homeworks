@@ -6,7 +6,7 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    // MARK: - Свойства
+    // MARK: - Properties
 
     class CustomButton: UIButton {
         override var isHighlighted: Bool {
@@ -106,11 +106,10 @@ class LoginViewController: UIViewController {
  
     private var login: String?
    
-    // MARK: - Жизненный цикл
+    // MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.isHidden = true //скрыть 
         self.view.backgroundColor = .white
         self.setupGestures()
         self.view.addSubview(self.scrollView)
@@ -133,7 +132,7 @@ class LoginViewController: UIViewController {
         
     }
  
-//Распознаватель жестов тап
+//Распознаватель жестов
     private func setupGestures() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.forcedHidingKeyboard))
         self.view.addGestureRecognizer(tapGesture)
@@ -150,9 +149,9 @@ class LoginViewController: UIViewController {
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
     }
- //сonstraints
+    
     private func scrollViewConstraints() -> [NSLayoutConstraint] {
-        let topAnchor = self.scrollView.topAnchor.constraint(equalTo:  self.view.topAnchor)
+        let topAnchor = self.scrollView.topAnchor.constraint(equalTo: self.view.topAnchor)
         let leadingAnchor = self.scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         let trailingAnchor = self.scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         let bottomAnchor = self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
