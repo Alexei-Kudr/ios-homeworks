@@ -8,7 +8,7 @@ class ProfileHeaderView: UIView {
     let fullNameLabel: UILabel = {
         let name = UILabel()
         name.translatesAutoresizingMaskIntoConstraints = false
-        name.text = " Full name label"
+        name.text = "Full name label"
         name.textColor = .black
         name.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         return name

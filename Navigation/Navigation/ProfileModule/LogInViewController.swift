@@ -101,6 +101,7 @@ class LoginViewController: UIViewController {
         button.backgroundColor = #colorLiteral(red: 0.3168755174, green: 0.5064481497, blue: 0.7199961543, alpha: 1)
         button.imageView?.contentMode = .scaleAspectFill
         button.clipsToBounds = true
+        button.addTarget(self, action: #selector(logInButtonPressed), for: .touchUpInside)
         return button
     }()
  
@@ -192,6 +193,12 @@ class LoginViewController: UIViewController {
         return [
             topAnchor, leadingConstraint, trailingConstraint, heightConstraint
         ]
+    }
+    
+    @objc
+    private func logInButtonPressed() {
+        let postViewController = ProfileViewController()
+        navigationController?.pushViewController(postViewController, animated: true)
     }
     
     @objc private func didShowKeyboard(_ notification: Notification) {

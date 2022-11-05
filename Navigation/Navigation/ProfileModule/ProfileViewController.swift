@@ -30,6 +30,8 @@ class ProfileViewController: UIViewController {
     func setupUI() {
         view.backgroundColor = .lightGray
         self.navigationItem.title = "Profile"
+        navigationController?.navigationBar.isHidden =  false
+
     }
     
     func setupConstraint() {
