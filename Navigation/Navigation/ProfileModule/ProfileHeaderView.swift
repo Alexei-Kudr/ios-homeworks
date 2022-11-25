@@ -1,10 +1,9 @@
 //
 import UIKit
 
-class ProfileHeaderView: UIView {
+class ProfileHeaderView: UITableViewHeaderFooterView {
     
     // MARK: - Свойства
-    
     let fullNameLabel: UILabel = {
         let name = UILabel()
         name.translatesAutoresizingMaskIntoConstraints = false
@@ -81,8 +80,8 @@ class ProfileHeaderView: UIView {
         statusText = String(textField.text!)
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         setupConstraint()
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         self.addGestureRecognizer(tap)
@@ -129,5 +128,7 @@ class ProfileHeaderView: UIView {
             setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
         ])
     }
+    
+    
 }
 

@@ -1,54 +1,72 @@
-//
+
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    // MARK: - Свойства
+    var post = [
+        ProfilePost(author: "никнейм автора публикации1", description: "текст публикации1", image: "1", likes: 123, views: 23),
+        ProfilePost(author: "никнейм автора публикации2", description: "текст публикации2", image: "1", likes: 123, views: 23),
+        ProfilePost(author: "никнейм автора публикации3", description: "текст публикации3", image: "1", likes: 123, views: 23),
+        ProfilePost(author: "никнейм автора публикации4", description: "текст публикации4", image: "1", likes: 123, views: 23)
+    ]
     
-    var profileHeaderView = ProfileHeaderView()
-    
-    
-    let changeTitle: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor.systemBlue
-        button.setTitle("Title", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        return button
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.tableHeaderView = UIView() //Хедер таблицы
+        tableView.tableFooterView = UIView(frame: .zero) //Футер таблицы (обычно нулевой)
+        tableView.rowHeight = UITableView.automaticDimension //высота ячейки автоматического размера в зависимости от контента (По умолчанию это свойство имеет значение automaticDimension)
+        tableView.estimatedRowHeight = 44 //примерный расчет высоты ячеек
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "ProfileHeaderView") //регестрируем кастомную ячейку и добовляем индификатор (нужен для переиспользования)
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "PostTableViewCell")
+        
+        return tableView
     }()
-    
-    // MARK: - Жизненый цикл
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-        setupConstraint()
+        self.setupTableView()
     }
     
-    // MARK: - Методы
-    
-    func setupUI() {
-        view.backgroundColor = .lightGray
-        self.navigationItem.title = "Profile"
-        navigationController?.navigationBar.isHidden =  false
-
-    }
-    
-    func setupConstraint() {
-        view.addSubview(profileHeaderView)
-        view.addSubview(changeTitle)
-        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
+    private func setupTableView() {
+        self.view.addSubview(self.tableView) //tableView по уровню Constraint view
+        
         
         NSLayoutConstraint.activate([
-            profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            profileHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
+            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             
-            changeTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            changeTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            changeTitle.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            changeTitle.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
+    
+    //MARK: - DataSource (Источник данных)
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.post.count
+    } //количество ячеек
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell", for: indexPath)//обьект для каждой ячейки
+        let post = post[indexPath.row]
+        //   cell.configure(post: post)
+        return cell
+    }
+    
+    private func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ProfileHeaderView") as? ProfileHeaderView
+            return  headerView
+        }
+        return nil
+    }
+    
+    
+    //MARK: - Delegate (позволяют делегату управлять выборами, конфигурировать заголовки раздела и нижние колонтитулы, помогать удалить и переупорядочить ячейки и выполнить другие действия.)
+    
+    
+    
 }
+
