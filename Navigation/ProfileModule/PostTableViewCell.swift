@@ -31,7 +31,7 @@ class PostTableViewCell: UITableViewCell {
         return description
     }()
     
-    //MARK: - Image (кртинка)
+    //MARK: - Image (картинка)
     private lazy var image: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
@@ -58,13 +58,22 @@ class PostTableViewCell: UITableViewCell {
 
     // MARK: - setup (конфигурация ячейки из массива)
    func configure(post: ProfilePost) {
-        image.image = UIImage(named: post.image)
+       image.image = UIImage(named: post.image)
         author.text = post.author
-        postDescription.text = post.description
-        likes.text = "Likes: (String(describing: post.likes))"
-        views.text = "Views: (String(describing: post.views))"
+       postDescription.text = post.description
+       likes.text = "Likes: \(post.likes)"
+       views.text = "Views: \(post.views)"
     }
     
+    // MARK: - init (подготовительный процесс экземпляра класса, структуры или перечисления для дальнейшего использования.)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setupConstraints()
+    }
+    
+    required init?(coder: NSCoder) { //если создать ячейку из storyboard и xib будет краш
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Constraints
     private func setupConstraints(){

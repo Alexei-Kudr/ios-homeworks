@@ -3,12 +3,7 @@ import UIKit
 
 class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var post = [
-        ProfilePost(author: "никнейм автора публикации1", description: "текст публикации1", image: "1", likes: 123, views: 23),
-        ProfilePost(author: "никнейм автора публикации2", description: "текст публикации2", image: "1", likes: 123, views: 23),
-        ProfilePost(author: "никнейм автора публикации3", description: "текст публикации3", image: "1", likes: 123, views: 23),
-        ProfilePost(author: "никнейм автора публикации4", description: "текст публикации4", image: "1", likes: 123, views: 23)
-    ]
+    private let post = ProfilePost.posts()
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -49,18 +44,23 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     } //количество ячеек
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell", for: indexPath)//обьект для каждой ячейки
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell", for: indexPath) as? PostTableViewCell
+        else { return UITableViewCell()}
         let post = post[indexPath.row]
-        //   cell.configure(post: post)
+        cell.configure(post: post)
         return cell
     }
     
-    private func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ProfileHeaderView") as? ProfileHeaderView
             return  headerView
         }
         return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        240
     }
     
     
