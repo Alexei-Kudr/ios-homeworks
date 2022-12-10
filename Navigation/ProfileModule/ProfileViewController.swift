@@ -6,7 +6,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     private let post = ProfilePost.posts()
     
     private lazy var tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableHeaderView = UIView() //Хедер таблицы
